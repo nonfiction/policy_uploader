@@ -8,3 +8,7 @@ elsif ENV['RACK_ENV'] == 'test'
 else
   DB = Sequel.connect('sqlite://db/development.db')
 end
+
+DB.extension(:connection_validator)
+
+DB.pool.connection_validation_timeout = -1
