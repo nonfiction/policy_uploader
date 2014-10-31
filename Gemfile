@@ -6,6 +6,7 @@ gem 'sequel'
 gem 'less'
 gem 'therubyracer'
 gem 'json'
+gem 'unicorn'
 
 group :production do
   gem 'pg'

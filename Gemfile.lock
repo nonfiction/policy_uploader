@@ -3,6 +3,7 @@ GEM
   specs:
     commonjs (0.2.7)
     json (1.8.1)
+    kgio (2.9.1)
     less (2.4.0)
       commonjs (~> 0.2.7)
     libv8 (3.16.14.7)
@@ -13,6 +14,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    raindrops (0.12.0)
     rake (10.3.1)
     ref (1.0.5)
     sequel (4.15.0)
@@ -25,6 +27,10 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     tilt (1.4.1)
+    unicorn (4.8.2)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
@@ -40,3 +46,4 @@ DEPENDENCIES
   sinatra
   sqlite3
   therubyracer
+  unicorn
