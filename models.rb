@@ -1,3 +1,6 @@
+require "base64"
+require "json"
+
 class Policy < Sequel::Model
   plugin :validation_helpers
   def validate
@@ -17,5 +20,29 @@ class Policy < Sequel::Model
 
   def endpoint_url
     "https://example.com/policies/#{endpoint_hash}"
+  end
+
+  def signature
+    Base64.encode64(
+      OpenSSL::HMAC.digest(
+        OpenSSL::Digest::Digest.new('sha1'),
+        secret_access_key,
+        policy
+      )
+    ).gsub(/\n/, '')
+  end
+
+  def policy
+    Base64.encode64(
+      {
+        :expiration => (Time.now + 30*60).utc.strftime('%Y-%m-%dT%H:%M:%S.000Z'),
+        :conditions => [
+          { :bucket => bucket_url },
+          { :acl => 'public-read' },
+          { :success_action_status => '201' },
+          ['starts-with', '$key', '']
+        ]
+      }.to_json
+    ).gsub(/\n|\r/, '')
   end
 end

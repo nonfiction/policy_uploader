@@ -26,6 +26,21 @@ post '/policies' do
   end
 end
 
+get '/policies/:endpoint_hash' do
+  policy = Policy.where(:endpoint_hash => params[:endpoint_hash]).first
+  content_type :json
+  if policy
+    {
+      :policy => policy.policy,
+      :signature => policy.signature,
+      :bucket => policy.bucket_url,
+      :access_key_id => policy.access_key_id
+    }.to_json
+  else
+    {:eror => 'policy not found'}.to_json
+  end
+end
+
 get '/style.css' do
   less :style
 end

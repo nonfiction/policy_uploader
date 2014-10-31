@@ -7,17 +7,14 @@ def app
 end
 
 describe "policy" do
-  let(:policy) { Policy.new }
-
   it "should create" do
     Policy.dataset.destroy
-    policy.bucket_url = 'test bucket_url'
-    policy.origin = 'test origin'
-    policy.access_key_id = 'test access_key_id'
-    policy.secret_access_key = 'test secret_access_key'
-    policy.save
+    p = Policy.new(bucket_url: 'test bucket_url', origin: 'test origin', access_key_id: 'test access_key_id', secret_access_key: 'test secret_access_key')
+    p.save
     Policy.all.length.must_equal 1
-    Policy.first.bucket_url.must_equal 'test bucket_url'
+    p.bucket_url.must_equal 'test bucket_url'
+    p.signature.length.must_equal 28 # not sure if this is true always...
+    p.policy.length.must_equal 220 # not sure if this is true always...
   end
 end
 
