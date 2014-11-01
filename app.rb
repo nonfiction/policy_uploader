@@ -12,8 +12,7 @@ end
 
 post '/policies' do
   p = Policy.new
-  p.bucket_url = params[:bucket_url]
-  p.origin = params[:origin]
+  p.bucket = params[:bucket]
   p.access_key_id = params[:access_key_id]
   p.secret_access_key = params[:secret_access_key]
   if p.valid?
@@ -49,7 +48,7 @@ get '/policies/:endpoint_hash' do
     {
       :policy => policy.policy,
       :signature => policy.signature,
-      :bucket => policy.bucket_url,
+      :bucket => policy.bucket,
       :access_key_id => policy.access_key_id
     }.to_json
   else

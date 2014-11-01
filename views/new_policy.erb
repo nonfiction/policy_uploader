@@ -1,13 +1,11 @@
 <h1>Generate Policy</h1>
 <% if @errors %><p class="error"><%= @errors %></p><% end %>
 <form action="/policies" method="POST">
-  <label>bucket_url</label>
-  <input type="text" name="bucket_url">
-  <label>origin</label>
-  <input type="text" name="origin">
-  <label>access_key_id</label>
+  <label>AWS Bucket Name</label>
+  <input type="text" name="bucket">
+  <label>AWS Access Key</label>
   <input type="text" name="access_key_id">
-  <label>secret_access_key</label>
+  <label>AWS Secret Access</label>
   <input type="text" name="secret_access_key">
   <hr>
   <button type='submit'>Submit</button>

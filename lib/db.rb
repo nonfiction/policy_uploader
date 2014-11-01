@@ -1,13 +1,14 @@
 require 'sequel'
 
 if ENV['RACK_ENV'] == 'production'
-  db_url = URI.parse(ENV['DATABASE_URL'] || 'postgres:///localhost/policy_uploader')
-  DB = Sequel.connect(db_url.to_s)
+  db_url = ENV['DATABASE_URL']
 elsif ENV['RACK_ENV'] == 'test'
-  DB = Sequel.connect('sqlite://db/test.db')
+  db_url = 'postgres://localhost/policy_uploader_development'
 else
-  DB = Sequel.connect('sqlite://db/development.db')
+  db_url = 'postgres://localhost/policy_uploader_test'
 end
+
+DB = Sequel.connect(URI.parse(db_url).to_s)
 
 DB.extension(:connection_validator)
 

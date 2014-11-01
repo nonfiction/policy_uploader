@@ -6,8 +6,7 @@ class Policy < Sequel::Model
   def validate
     super
     validates_presence [
-      :bucket_url,
-      :origin,
+      :bucket,
       :access_key_id,
       :secret_access_key,
       :endpoint_hash
@@ -37,7 +36,7 @@ class Policy < Sequel::Model
       {
         :expiration => (Time.now + 30*60).utc.strftime('%Y-%m-%dT%H:%M:%S.000Z'),
         :conditions => [
-          { :bucket => bucket_url },
+          { :bucket => bucket },
           { :acl => 'public-read' },
           { :success_action_status => '201' },
           ['starts-with', '$key', '']
